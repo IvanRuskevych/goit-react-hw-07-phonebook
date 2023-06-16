@@ -1,14 +1,17 @@
-// import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Notify } from 'notiflix';
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
+import { addContact } from 'redux/operations';
+import { selectContacts } from 'redux/selectors';
+
 import css from './ContactForm.module.css';
-import { addContacts } from 'redux/operations';
-import { useDispatch } from 'react-redux';
 
 export default function ContactForm() {
   const dispatch = useDispatch();
+  const contacts = useSelector(selectContacts);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -16,7 +19,12 @@ export default function ContactForm() {
     const name = e.target.name.value;
     const phone = e.target.phone.value;
 
-    dispatch(addContacts({ name, phone }));
+    if (contacts.find(contact => contact.name === name)) {
+      Notify.warning(`${name} is already in contacts`);
+      return;
+    }
+
+    dispatch(addContact({ name, phone }));
 
     form.reset();
   };
@@ -60,4 +68,3 @@ export default function ContactForm() {
     </form>
   );
 }
-//
