@@ -1,11 +1,11 @@
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
+import { addContact } from 'redux/contactsSlice';
+
 import css from './ContactForm.module.css';
-import { addContacts } from 'redux/operations';
-import { useDispatch } from 'react-redux';
 
 export default function ContactForm() {
   const dispatch = useDispatch();
@@ -14,9 +14,9 @@ export default function ContactForm() {
     e.preventDefault();
     const form = e.target;
     const name = e.target.name.value;
-    const phone = e.target.phone.value;
+    const number = e.target.number.value;
 
-    dispatch(addContacts({ name, phone }));
+    dispatch(addContact(name, number));
 
     form.reset();
   };
@@ -46,10 +46,10 @@ export default function ContactForm() {
               '+?d{1,4}?[-.s]?(?d{1,3}?)?[-.s]?d{1,4}[-.s]?d{1,4}[-.s]?d{1,9}',
           }}
           id="outlined-basic"
-          label="Phone"
+          label="Number"
           variant="outlined"
           type="tel"
-          name="phone"
+          name="number"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
         />
