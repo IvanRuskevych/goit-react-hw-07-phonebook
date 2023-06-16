@@ -2,13 +2,13 @@ import { nanoid } from 'nanoid';
 
 import Contact from 'components/Contact/Contact';
 import { useSelector } from 'react-redux';
-import { getContacts, getFilter } from 'redux/selectors';
+import { selectContacts, selectFilter } from 'redux/selectors';
 
 function ContactsList() {
-  const contacts = useSelector(getContacts);
-  console.log(contacts);
-  const filter = useSelector(getFilter);
-  console.log(filter);
+  const contacts = useSelector(selectContacts);
+  // console.log(contacts);
+  const filter = useSelector(selectFilter);
+  // console.log(filter);
 
   const normolizedFilter = filter.toLowerCase().trim();
   const list = contacts.filter(contact =>
